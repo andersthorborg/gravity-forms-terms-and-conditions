@@ -9,6 +9,8 @@
  * License: GPL2
  */
 
+load_plugin_textdomain('gf_terms_conditions', false, basename( dirname( __FILE__ ) ) . '/languages' );
+
 add_filter("gform_add_field_buttons", "gf_add_terms_conditions_field");
 
 function gf_add_terms_conditions_field($field_groups){
@@ -98,22 +100,22 @@ function gf_terms_conditions_standard_settings($position, $form_id){
       ?>
       <li class="terms_conditions_header_setting field_setting">
           <label for="field_admin_label">
-              <?php _e("Terms and conditions header", "gravityforms"); ?>
+              <?php _e("Terms and conditions header", "gf_terms_conditions"); ?> <small>(<?php _e('Shown in modal dialog', 'gf_terms_conditions')?>)</small>
           </label>
           <input class="fieldwidth-3" type="text" id="field_terms_conditions_header" onchange="SetFieldProperty('terms_conditions_header', this.value);" value="Terms and conditions"/>
       </li>
       <li class="terms_conditions_setting field_setting">
           <label for="field_admin_label">
-              <?php _e("Terms and conditions", "gravityforms"); ?> <small>(<?php __('Shown in modal dialog')?>)</small>
+              <?php _e("Terms and conditions", "gf_terms_conditions"); ?>
           </label>
           <textarea class="fieldwidth-3 fieldheight-4" rows="20" id="field_terms_conditions" onchange="SetFieldProperty('terms_conditions', this.value);">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis, sapiente, at, illum quae ullam quia ut mollitia ipsam provident numquam enim fuga culpa quas voluptatum itaque nisi assumenda porro iure!</textarea>
       </li>
       <li class="terms_conditions_link_text_setting field_setting">
           <label for="field_admin_label">
-              <?php _e("Terms and conditions links text", "gravityforms"); ?>
+              <?php _e("Terms and conditions link text", "gf_terms_conditions"); ?>
           </label>
-          <input class="fieldwidth-3" type="text" id="field_terms_conditions_link_text" onchange="SetFieldProperty('terms_conditions_link_text', this.value);" value="<?php __('I have read and accepted the [terms and conditions]') ?>"/>
-          <p><small>Use [brackets] to indicate terms link. Eg. "I have read and accepted the [terms and conditions]."</small></p>
+          <input class="fieldwidth-3" type="text" id="field_terms_conditions_link_text" onchange="SetFieldProperty('terms_conditions_link_text', this.value);" value="<?php _e('I have read and accepted the [terms and conditions]', 'gf_terms_conditions') ?>"/>
+          <p><small><?php _e('Use [brackets] to indicate terms link. Eg. "I have read and accepted the [terms and conditions]."'); ?></small></p>
       </li>
       <?php
   }
