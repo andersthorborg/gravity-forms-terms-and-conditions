@@ -51,7 +51,7 @@ function gf_terms_conditions_field_input ( $input, $field, $value, $lead_id, $fo
 	        <p>' . nl2br($field['terms_conditions']) . '</p>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">' . __('Close') . '</button>	        
+	        <button type="button" class="btn btn-default" data-dismiss="modal">' . __('Close') . '</button>
 	      </div>
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
@@ -60,7 +60,7 @@ function gf_terms_conditions_field_input ( $input, $field, $value, $lead_id, $fo
 	$link = str_replace('[', '<a href="" data-toggle="modal" data-target="#modal_' . $form_id . '_' . $field['id'] . '">', $field['terms_conditions_link_text']);
 	$link = str_replace(']', '</a>', $link);
 	$fieldId = $form_id . '_' . $field['id'];
-	$markup .= '	
+	$markup .= '
 	<ul class="gfield_checkbox">
 		<li class="gchoice_' . $fieldId . '">
 			<input type="checkbox" tabindex="' . $tabindex . '" name="input_' . $field['id'] . '" id="input_' . $fieldId . '">
@@ -68,13 +68,14 @@ function gf_terms_conditions_field_input ( $input, $field, $value, $lead_id, $fo
 		</li>
 	</ul>
 <script type="text/javascript">
-	jQuery(function($){				
+	jQuery(function($){
+    var modal = $("#modal_' . $form_id . '_' . $field['id'] . '");
+    $("body").append(modal);
 		var $input = $("#input_' . $form_id . '_' . $field['id'] . '");
 		var $form = $input.parents("form");
 		var $submit = $form.find("input[type=submit]");
 		$submit.attr("disabled", "disabled");
 		$input.click(function(){
-			console.log("test");
 			if($input.is(":checked")){
 				$submit.removeAttr("disabled");
 			}
@@ -132,14 +133,14 @@ function gf_terms_conditions_editor_script(){
         //binding to the load field settings event to initialize the checkbox
         jQuery(document).bind("gform_load_field_settings", function(event, field, form){
         	if(field["terms_conditions"]){
-        		jQuery("#field_terms_conditions").val(field["terms_conditions"]);	
+        		jQuery("#field_terms_conditions").val(field["terms_conditions"]);
         	}
             if(field["terms_conditions_header"]){
-            	jQuery("#field_terms_conditions_header").val(field["terms_conditions_header"]);	
+            	jQuery("#field_terms_conditions_header").val(field["terms_conditions_header"]);
             }
             if(field["terms_conditions_link_text"]){
-            	jQuery("#field_terms_conditions_link_text").val(field["terms_conditions_link_text"]);	
-            }                        
+            	jQuery("#field_terms_conditions_link_text").val(field["terms_conditions_link_text"]);
+            }
         });
     </script>
     <?php
