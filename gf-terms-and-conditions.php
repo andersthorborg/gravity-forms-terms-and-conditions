@@ -3,7 +3,7 @@
  * Plugin Name: Gravity Forms Terms & Conditions
  * Plugin URI: http://thorb.org
  * Description: Adds a "Terms & conditions"-field to gravity forms that requires the user to accept the terms and conditions, shown in an overlay
- * Version: 0.1
+ * Version: 0.2
  * Author: Anders Thorborg
  * Author URI: http://thorb.org
  * License: GPL2
@@ -38,52 +38,53 @@ function gf_terms_conditions_field_input ( $input, $field, $value, $lead_id, $fo
     $tabindex = GFCommon::get_tabindex();
     $css = isset( $field['cssClass'] ) ? $field['cssClass'] : '';
     if(!is_admin()){
-    	$markup = '
+      $markup = '
 <div class="ginput_container">
-	<div class="modal fade" id="modal_' . $form_id . '_' . $field['id'] . '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	        <h4 class="modal-title">' . $field['terms_conditions_header'] . '</h4>
-	      </div>
-	      <div class="modal-body">
-	        <p>' . nl2br($field['terms_conditions']) . '</p>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">' . __('Close') . '</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->';
-	}
-	$link = str_replace('[', '<a href="" data-toggle="modal" data-target="#modal_' . $form_id . '_' . $field['id'] . '">', $field['terms_conditions_link_text']);
-	$link = str_replace(']', '</a>', $link);
-	$fieldId = $form_id . '_' . $field['id'];
-	$markup .= '
-	<ul class="gfield_checkbox">
-		<li class="gchoice_' . $fieldId . '">
-			<input type="checkbox" tabindex="' . $tabindex . '" name="input_' . $field['id'] . '" id="input_' . $fieldId . '">
-			<label for="choice_' . $fieldId . '" id="label_' . $fieldId . '">' . $link . '</label>
-		</li>
-	</ul>
+  <div class="modal fade" id="modal_' . $form_id . '_' . $field['id'] . '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">' . $field['terms_conditions_header'] . '</h4>
+        </div>
+        <div class="modal-body" style="max-height:300px;">
+          <p>' . nl2br($field['terms_conditions']) . '</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">' . __('Close') . '</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->';
+  }
+  $link = str_replace('[', '<a href="" data-toggle="modal" data-target="#modal_' . $form_id . '_' . $field['id'] . '">', $field['terms_conditions_link_text']);
+  $link = str_replace(']', '</a>', $link);
+  $fieldId = $form_id . '_' . $field['id'];
+  $markup .= '
+  <ul class="gfield_checkbox">
+    <li class="gchoice_' . $fieldId . '">
+      <input type="checkbox" tabindex="' . $tabindex . '" name="input_' . $field['id'] . '" id="input_' . $fieldId . '">
+      <label for="choice_' . $fieldId . '" id="label_' . $fieldId . '">' . $link . '</label>
+    </li>
+  </ul>
 <script type="text/javascript">
-	jQuery(function($){
+  jQuery(function($){
     var modal = $("#modal_' . $form_id . '_' . $field['id'] . '");
     $("body").append(modal);
-		var $input = $("#input_' . $form_id . '_' . $field['id'] . '");
-		var $form = $input.parents("form");
-		var $submit = $form.find("input[type=submit]");
-		$submit.attr("disabled", "disabled");
-		$input.click(function(){
-			if($input.is(":checked")){
-				$submit.removeAttr("disabled");
-			}
-			else{
-				$submit.attr("disabled", "disabled");
-			}
-		});
-	});
+    modal.hide();
+    var $input = $("#input_' . $form_id . '_' . $field['id'] . '");
+    var $form = $input.parents("form");
+    var $submit = $form.finds("input[type=submit]");
+    $submit.attr("disabled", "disabled");
+    $input.click(function(){
+      if($input.is(":checked")){
+        $submit.removeAttr("disabled");
+      }
+      else{
+        $submit.attr("disabled", "disabled");
+      }
+    });
+  });
 </script>
 </div>
     ';
@@ -132,14 +133,14 @@ function gf_terms_conditions_editor_script(){
 
         //binding to the load field settings event to initialize the checkbox
         jQuery(document).bind("gform_load_field_settings", function(event, field, form){
-        	if(field["terms_conditions"]){
-        		jQuery("#field_terms_conditions").val(field["terms_conditions"]);
-        	}
+          if(field["terms_conditions"]){
+            jQuery("#field_terms_conditions").val(field["terms_conditions"]);
+          }
             if(field["terms_conditions_header"]){
-            	jQuery("#field_terms_conditions_header").val(field["terms_conditions_header"]);
+              jQuery("#field_terms_conditions_header").val(field["terms_conditions_header"]);
             }
             if(field["terms_conditions_link_text"]){
-            	jQuery("#field_terms_conditions_link_text").val(field["terms_conditions_link_text"]);
+              jQuery("#field_terms_conditions_link_text").val(field["terms_conditions_link_text"]);
             }
         });
     </script>
