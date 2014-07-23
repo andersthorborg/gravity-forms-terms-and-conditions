@@ -74,7 +74,7 @@ function gf_terms_conditions_field_input ( $input, $field, $value, $lead_id, $fo
     modal.hide();
     var $input = $("#input_' . $form_id . '_' . $field['id'] . '");
     var $form = $input.parents("form");
-    var $submit = $form.finds("input[type=submit]");
+    var $submit = $form.find("input[type=submit]");
     $submit.attr("disabled", "disabled");
     $input.click(function(){
       if($input.is(":checked")){
